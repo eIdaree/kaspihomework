@@ -20,12 +20,9 @@ import java.math.BigDecimal;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    Long id;
+    private Long id;
 
-    @NotEmpty(message = "The name of a product can not be empty")
-    String name;
-
-    @DecimalMin(value = "10.00", message = "Price must be at least 10")
-    @NotNull(message = "Price can not be null")
-    BigDecimal price;
+    private String name;
+    private BigDecimal price;
+    private String address;
 }
