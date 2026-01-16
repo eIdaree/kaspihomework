@@ -1,0 +1,9 @@
+security:
+  basic:
+    users:
+      - username: admin
+        password: adminpass
+        role: ADMIN
+      - username: user
+        password: userpass
+        role: USER

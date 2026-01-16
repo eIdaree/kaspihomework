@@ -7,6 +7,7 @@ import kz.eldar.kaspihomework.kaspihomework.models.payload.product.ProductRespon
 import kz.eldar.kaspihomework.kaspihomework.models.payload.product.UpdateProductRequestDto;
 import kz.eldar.kaspihomework.kaspihomework.services.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class ProductController {
 
     private final ProductService productService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ProductResponseDto create(@Valid @RequestBody CreateProductRequestDto productDto) {
         return productService.create(productDto);
@@ -32,6 +34,7 @@ public class ProductController {
         return productService.getById(id).orElseThrow(() -> new NotFoundException("Product", id));
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/{id}")
     public ProductResponseDto update(
             @PathVariable Long id,
@@ -40,6 +43,7 @@ public class ProductController {
         return productService.update(id, productDto);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         productService.delete(id);
