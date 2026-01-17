@@ -12,13 +12,17 @@ import kz.eldar.kaspihomework.kaspihomework.models.payload.product.CreateProduct
 import kz.eldar.kaspihomework.kaspihomework.models.payload.product.ProductResponseDto;
 import kz.eldar.kaspihomework.kaspihomework.models.payload.product.UpdateProductRequestDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
@@ -44,14 +48,17 @@ public class ProductServiceImpl implements ProductService {
         return productMapper.toResponse(saved);
     }
 
+    @Async("productExecutor")
     @Override
-    public List<ProductResponseDto> getAll(){
-        return productRepository
-                .findAll()
+    public CompletableFuture<List<ProductResponseDto>> getAll() {
+        log.info("Тест то, что мы реально используем наш executor. Thread: {}", Thread.currentThread().getName());
+        List<ProductResponseDto> results = productRepository.findAll()
                 .stream()
                 .map(productMapper::toResponse)
                 .toList();
+        return CompletableFuture.completedFuture(results);
     }
+
 
     @Override
     public Optional<ProductResponseDto> getById(Long id){

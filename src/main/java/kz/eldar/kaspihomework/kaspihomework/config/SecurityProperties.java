@@ -12,7 +12,7 @@ import java.util.List;
 @ConfigurationProperties(prefix = "security.basic")
 @Getter
 @Setter
-public class SecurityProperties {
+public class SecurityProperties{
 
     private List<UserConfig> users = new ArrayList<>();
 

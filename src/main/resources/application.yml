@@ -7,3 +7,9 @@ security:
       - username: user
         password: userpass
         role: USER
+
+server:
+  tomcat:
+    threads:
+      max: 50
+      min-spare: 10

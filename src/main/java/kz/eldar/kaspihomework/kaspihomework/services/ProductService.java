@@ -7,10 +7,11 @@ import kz.eldar.kaspihomework.kaspihomework.models.payload.product.UpdateProduct
 
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 public interface ProductService {
     ProductResponseDto create(CreateProductRequestDto productDto);
-    List<ProductResponseDto> getAll();
+    CompletableFuture<List<ProductResponseDto>> getAll();
     Optional<ProductResponseDto> getById(Long id);
     ProductResponseDto update(Long id, UpdateProductRequestDto updated);
     void delete(Long id);
