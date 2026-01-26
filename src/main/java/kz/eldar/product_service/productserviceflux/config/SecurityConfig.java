@@ -29,7 +29,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final SecurityProperties securityProperties;
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper ;
 
     @Bean
     public SecurityWebFilterChain filterChain(ServerHttpSecurity http) {
